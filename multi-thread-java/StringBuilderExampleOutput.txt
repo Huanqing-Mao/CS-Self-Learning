@@ -1,0 +1,33 @@
+with `synchronized` keyword: ==> same as StringBuffer
+
+Final buffer content: Thread1 - 0
+Thread3 - 0
+Thread2 - 0
+Thread1 - 1
+Thread3 - 1
+Thread2 - 1
+Thread3 - 2
+Thread2 - 2
+Thread1 - 2
+Thread1 - 3
+Thread2 - 3
+Thread3 - 3
+Thread2 - 4
+Thread3 - 4
+Thread1 - 4
+
+without keyword ==> Wrong result because there are multiple threads trying to append at the same time
+Final buffer content: Thread1 - 0
+Thread3 - 0
+Thread2 - 0
+Thread1 - 1
+Thread3 - 1 // thread 2 didn't append when its i = 1
+Thread3 - 2
+Thread1 - 2
+Thread2 - 2
+Thread1 - 3
+Thread2 - 3
+Thread3 - 3
+Thread3 - 4 // thread 1, 2 didn't append when their i = 4
+
+Hence StringBuilder is not Thread-safe
